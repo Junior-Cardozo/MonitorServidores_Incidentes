@@ -1,0 +1,41 @@
+services:
+  api:
+    image: ${DOCKERHUB_USUARIO}/monitorservidores-incidentes:1.0
+    container_name: monitorservidores-incidentes-api
+    ports:
+      - "${PUERTO_API}:8080"
+    environment:
+      ASPNETCORE_HTTP_PORTS: 8080
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - monitor-red
+
+  postgres:
+    image: postgres:17-alpine
+    container_name: monitorservidores-incidentes-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${PUERTO_DB}:5432"
+    volumes:
+      - incidentes_datos:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - monitor-red
+
+volumes:
+  incidentes_datos:
+
+networks:
+  monitor-red:
+    driver: bridge
