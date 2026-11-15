@@ -4,7 +4,7 @@ Proyecto individual para la gestión de incidentes detectados en servidores.
 
 ## Integrante y tabla
 
-- Integrante: TU NOMBRE COMPLETO
+- Integrante: Junior Isaac Cardozo Romero
 - Tabla: `incidentes`
 - Controlador: `IncidentesController`
 - Operaciones: POST, GET (todos), GET por ID, PUT y DELETE.
