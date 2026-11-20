@@ -137,3 +137,5 @@ docker compose --env-file .env -f contructor.yml down
 
 
 Esta wea es full ia 
+
+wea 
