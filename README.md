@@ -133,3 +133,7 @@ docker compose --env-file .env -f despliegue.yml up -d
 ```bash
 docker compose --env-file .env -f contructor.yml down
 ```
+
+
+
+Esta wea es full ia 
